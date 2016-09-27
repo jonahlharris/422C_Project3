@@ -1,14 +1,16 @@
 /* WORD LADDER Main.java
  * EE422C Project 3 submission by
- * Replace <...> with your actual data.
+ * 
  * <Sagar Krishnaraj>
  * <sk37433>
  * <Student1 5-digit Unique No.>
- * <Student2 Name>
- * <Student2 EID>
- * <Student2 5-digit Unique No.>
+ * 
+ * Jonah Harris
+ * jlh6487
+ * 16455
+ * 
  * Slip days used: <0>
- * Git URL:
+ * Git URL: https://github.com/Hackerman64/422C_Project3
  * Fall 2016
  */
 
@@ -82,16 +84,25 @@ public class Main {
 		return userInputList;
 	}
 	
+	/*
+	 * Returns the word ladder for the two specified words using Depth First Search (DFS)
+	 * 
+	 * Jonah
+	 */
 	public static ArrayList<String> getWordLadderDFS(String start, String end) {
 		
 		// Returned list should be ordered start to end.  Include start and end.
 		// Return empty list if no ladder.
-		// TODO some code
 		Set<String> dict = makeDictionary();
-		// TODO more code
+		DFS startDFS = new DFS();
+		startDFS.runDFS(start, end, dict);
+		
 		
 		return null; // replace this line later with real return
 	}
+	
+	
+	
 	
     public static ArrayList<String> getWordLadderBFS(String start, String end) {
 		
