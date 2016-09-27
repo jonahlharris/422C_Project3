@@ -21,10 +21,23 @@ import java.io.*;
 public class DFS {
 	
 	/*
+	 * Constructor for DFS objects
+	 */
+	public DFS(){
+		
+	}
+	
+	
+	
+	/*
 	 * Returns a word ladder between the 'start' and 'end' words using DFS.
 	 */
-	public ArrayList<String> startDFS(String start, String end, Set<String> the_d){
+	public ArrayList<String> runDFS(String start, String end, Set<String> the_d){
 		
+		/*
+		 * What we can do is create a array and store all the words in the array. Then, as we run through the list
+		 * from top to bottom we don't have to mark anything as 'complete' because the code cannot go backwards. 
+		 */
 		
 		
 		
