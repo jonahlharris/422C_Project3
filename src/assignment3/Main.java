@@ -53,7 +53,7 @@ public class Main {
 		String endWord = userInputList.get(1);
 		
 		// BFS
-		getWordLadderBFS(startWord, endWord);
+		//getWordLadderBFS(startWord, endWord);
 
 		
 		// DFS
@@ -96,7 +96,7 @@ public class Main {
 	/*
 	 * Returns the word ladder for the two specified words using Depth First Search (DFS)
 	 * 
-	 * Jonah
+	 * Jonah ///////////////////////////////////////////////////////////////////////////////////////////////////
 	 */
 	public static ArrayList<String> getWordLadderDFS(String start, String end) {
 		
@@ -125,7 +125,7 @@ public class Main {
 	}
 	
 	
-	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
     public static ArrayList<String> getWordLadderBFS(String start, String end) {
 		
@@ -144,7 +144,7 @@ public class Main {
 	}
     
     public static ArrayList<String> expandSearchRadius(ArrayList<String> currWords, Set<String> dict, String start, String end, int currIdx) {
-    	int tempIdx, currEndIdx = currIdx;
+    	/*int tempIdx, currEndIdx = currIdx;
     	// find all words one letter change away
     	for (int i=tempIdx; i<currWords.size(); i++) {
     		String currWord = currWords.get(i);
@@ -156,7 +156,7 @@ public class Main {
     		if (!dict.contains(currWords.get(i)) || currWords.containsBeforeIt()) {
     			currWords.remove(i);
     		}
-    	}
+    	}*/
     	return null;
     }
     
@@ -181,7 +181,7 @@ public class Main {
 		Set<String> words = new HashSet<String>();
 		Scanner infile = null;
 		try {
-			infile = new Scanner (new File("short_dict.txt"));  //Short dictionary for testing
+			infile = new Scanner (new File("five_letter_words.txt"));  //Short dictionary for testing
 		} catch (FileNotFoundException e) {
 			System.out.println("Dictionary File not Found!");
 			e.printStackTrace();

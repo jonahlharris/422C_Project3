@@ -65,6 +65,7 @@ public class DFS {
 				n += 1;
 			}
 		}
+		myLadder.removeWord(word);   //Trying to see if it will remove the first word; may screw up lol
 		return;
 	}
 	

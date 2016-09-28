@@ -10,7 +10,7 @@ public class WordLadder {
 	Set<String> full_list;
 	
 	public WordLadder(){
-		full_list = new HashSet<String>();
+		full_list = new LinkedHashSet<String>();
 	}
 	
 	public void addWord(String word){
@@ -26,7 +26,12 @@ public class WordLadder {
 	}
 	
 	public void printLadder(){
-		// Need to implement
+		
+		Iterator<String> myIt = full_list.iterator();
+		while(myIt.hasNext()){
+			System.out.println(myIt.next());
+		}
+		
 	}
 	
 	
