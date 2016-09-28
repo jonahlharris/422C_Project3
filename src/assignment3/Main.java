@@ -57,7 +57,7 @@ public class Main {
 
 		
 		// DFS
-		getWordLadderDFS(startWord, endWord);
+		getWordLadderDFS(startWord, endWord); //Print statement in this function for now! :)
 		
 		// print ladder
 		// printLadder();
@@ -116,12 +116,12 @@ public class Main {
 		}
 		
 		n = 0;
-		DFS startDFS = new DFS(the_D, start, end);
+		DFS startDFS = new DFS(dict, the_D, start, end);
 		//startDFS. word ladder clear
 		startDFS.runDFS(start, n);
-		
-		
-		return null; // replace this line later with real return
+		if(startDFS.myLadder.findWord(start)){ startDFS.myLadder.printLadder(); }
+		else { System.out.println("No match!!!"); }
+		return null; //Need to return list; printing here for testing :)
 	}
 	
 	

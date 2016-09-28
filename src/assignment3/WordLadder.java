@@ -7,12 +7,26 @@ import java.io.*;
  */
 public class WordLadder {
 	
+	Set<String> full_list;
+	
 	public WordLadder(){
-		
+		full_list = new HashSet<String>();
 	}
 	
-	public void makeLadder(){
-		
+	public void addWord(String word){
+		full_list.add(word);
+	}
+	
+	public void removeWord(String word){
+		full_list.remove(word);
+	}
+	
+	public boolean findWord(String word){
+		return full_list.contains(word);
+	}
+	
+	public void printLadder(){
+		// Need to implement
 	}
 	
 	

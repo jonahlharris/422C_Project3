@@ -21,6 +21,7 @@ import java.io.*;
 public class DFS {
 	
 	WordLadder myLadder = new WordLadder();
+	Set<String> hashWords;
 	String[] the_D;
 	String start;
 	String end;
@@ -28,7 +29,8 @@ public class DFS {
 	/*
 	 * Constructor for DFS objects
 	 */
-	public DFS(String[] in, String s, String e){
+	public DFS(Set<String> hash, String[] in, String s, String e){
+		hashWords = hash;
 		the_D = in;
 		start = s;
 		end = e;
@@ -46,35 +48,39 @@ public class DFS {
 	 */
 	public void runDFS(String word, int n){
 		
-		if (n > the_D.length){ 
-			// ---> need to erase last word in path
+		myLadder.addWord(word);
+		if (word.equals(end)){ 
 			return; 
 		}
-		if (word.equals(end)){ return; }
 		
-		// --->   Add word to ladder
-		for (int i = 0; i < the_D.length; i += 1){
-			
-			if(wordCompare(the_D[i])){ runDFS(the_D[i], n + 1); }
-			
-			
-			
+		while (n < the_D.length){
+			if (wordCompare(word, the_D[n])){ // Method to compare word and check for redundancy
+				//myLadder.addWord(the_D[n]);
+				runDFS(the_D[n], 0);
+				if (myLadder.findWord(end)) { return; }
+				myLadder.removeWord(the_D[n]);
+				n += 1;			 
+			}
+			else{
+				n += 1;
+			}
 		}
-		
-		
-		
-		
-		
-		return; //CHANGE 
+		return;
 	}
 	
 	
-	public boolean wordCompare(String word){
+	public boolean wordCompare(String word, String dic_word){
 		
+		//Check our WordLadder to see if already present
+		if(myLadder.findWord(dic_word)){ return false; }
 		
+		int char_match = 0;
+		for(int i = 0; i < 5; i += 1){ //Comparing each letter of both words
+			if(word.charAt(i) == dic_word.charAt(i)){ char_match += 1; }
+		}
 		
-		
-		return false;
+		if (char_match == 4){ return true; }
+		else { return false; }
 	}
 	
 
