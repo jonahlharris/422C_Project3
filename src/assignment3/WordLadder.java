@@ -11,6 +11,10 @@ public class WordLadder {
 		
 	}
 	
+	public void makeLadder(){
+		
+	}
+	
 	
 
 }

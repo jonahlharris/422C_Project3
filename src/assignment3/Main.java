@@ -14,6 +14,12 @@
  * Fall 2016
  */
 
+/*
+ * BEFORE COMMITTING:  ////////////////////////////////////////////////////////////////////////////////////////
+ * 
+ * 		UNCOMMENT line getWordLadderBFS in main
+ * 		UNCOMMENT method expandSearchRadius in Main
+ */
 
 package assignment3;
 import java.util.*;
@@ -48,7 +54,10 @@ public class Main {
 		
 		// BFS
 		getWordLadderBFS(startWord, endWord);
-		// TODO methods to read in words, output ladder
+
+		
+		// DFS
+		getWordLadderDFS(startWord, endWord);
 		
 		// print ladder
 		// printLadder();
@@ -94,8 +103,22 @@ public class Main {
 		// Returned list should be ordered start to end.  Include start and end.
 		// Return empty list if no ladder.
 		Set<String> dict = makeDictionary();
-		DFS startDFS = new DFS();
-		startDFS.runDFS(start, end, dict);
+		Object[] array = dict.toArray();
+		
+		int n = 0;
+		String[] the_D = new String[array.length];
+		//System.out.println(array.length);
+		while (n < array.length){
+			
+			the_D[n] = (String)array[n]; 
+			//System.out.println(the_D[i]);
+			n += 1;
+		}
+		
+		n = 0;
+		DFS startDFS = new DFS(the_D, start, end);
+		//startDFS. word ladder clear
+		startDFS.runDFS(start, n);
 		
 		
 		return null; // replace this line later with real return
@@ -158,7 +181,7 @@ public class Main {
 		Set<String> words = new HashSet<String>();
 		Scanner infile = null;
 		try {
-			infile = new Scanner (new File("five_letter_words.txt"));
+			infile = new Scanner (new File("short_dict.txt"));  //Short dictionary for testing
 		} catch (FileNotFoundException e) {
 			System.out.println("Dictionary File not Found!");
 			e.printStackTrace();

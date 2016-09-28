@@ -20,11 +20,18 @@ import java.io.*;
 
 public class DFS {
 	
+	WordLadder myLadder = new WordLadder();
+	String[] the_D;
+	String start;
+	String end;
+	
 	/*
 	 * Constructor for DFS objects
 	 */
-	public DFS(){
-		
+	public DFS(String[] in, String s, String e){
+		the_D = in;
+		start = s;
+		end = e;
 	}
 	
 	
@@ -32,20 +39,43 @@ public class DFS {
 	/*
 	 * Returns a word ladder between the 'start' and 'end' words using DFS.
 	 */
-	public ArrayList<String> runDFS(String start, String end, Set<String> the_d){
+	
+	/* IDEAS:
+	 * - If we reach the end of the dictionary array we need to remove the last word added and return
+	 * - If we find that the next word matches (:D !!!) the we just return with the added word still there 
+	 */
+	public void runDFS(String word, int n){
 		
-		/*
-		 * What we can do is create a array and store all the words in the array. Then, as we run through the list
-		 * from top to bottom we don't have to mark anything as 'complete' because the code cannot go backwards. 
-		 */
+		if (n > the_D.length){ 
+			// ---> need to erase last word in path
+			return; 
+		}
+		if (word.equals(end)){ return; }
+		
+		// --->   Add word to ladder
+		for (int i = 0; i < the_D.length; i += 1){
+			
+			if(wordCompare(the_D[i])){ runDFS(the_D[i], n + 1); }
+			
+			
+			
+		}
 		
 		
 		
 		
 		
-		
-		
-		return null; //CHANGE 
+		return; //CHANGE 
 	}
+	
+	
+	public boolean wordCompare(String word){
+		
+		
+		
+		
+		return false;
+	}
+	
 
 }
