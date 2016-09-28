@@ -50,14 +50,16 @@ public class Main {
 		// read in and parse the words
 		ArrayList<String> userInputList = parse(userInput);
 		String startWord = userInputList.get(0);
+		Word startW = new Word(startWord, null);
 		String endWord = userInputList.get(1);
+		Word endW = new Word(endWord, null);
 		
 		// BFS
-		getWordLadderBFS(startWord, endWord);
+		getWordLadderBFS(startW, endW);
 
 		
 		// DFS
-		getWordLadderDFS(startWord, endWord);
+		// getWordLadderDFS(startWord, endWord);
 		
 		// print ladder
 		// printLadder();
@@ -124,56 +126,82 @@ public class Main {
 		return null; // replace this line later with real return
 	}
 	
+	/*
+	 * Returns the word ladder for the two specified words using Breadth First Search (BFS)
+	 * 
+	 * Sagar
+	 */
 	
-	
-	
-    public static ArrayList<String> getWordLadderBFS(String start, String end) {
+    public static ArrayList<String> getWordLadderBFS(Word start, Word end) {
 		
 		// TODO some code
-    	ArrayList<String> currWords = new ArrayList<String>();
+    	ArrayList<Word> currWords = new ArrayList<Word>();
     	int currIdx = 0;
     	currWords.add(start);
+    	int currStartIdx = currIdx;
+    	int currEndIdx = currWords.size();
 		Set<String> dict = makeDictionary();
     	while (!currWords.contains(end)) {
-    		expandSearchRadius(currWords, dict, start, end, currIdx);
-//    		removeExtraWords();
+    		currWords = expandSearchRadius(currWords, dict, start, end, currStartIdx, currEndIdx);
+    		currStartIdx = currEndIdx;
+    		currEndIdx = currWords.size();
     	}
+    	// create word ladder
+    	ArrayList<Word> printLadder = new ArrayList<Word>();
+    	printLadder.add(end);
+    	Word printWord = end;
+    	while (printWord.parent != start) {
+    		printWord = printWord.parent;
+    		printLadder.add(printWord);
+    	}
+    	printLadder.add(start);
+    	// print word ladder
+    	System.out.println("a " + String.valueOf(printLadder.size()-2) + "-rung word ladder exists between " + start.value + " and " + end.value);
+    	for (int k=0; k<printLadder.size(); k++) {
+    		System.out.println(printLadder.get(printLadder.size()-k-1).value);
+    	}
+    	
 		// TODO more code
 		
 		return null; // replace this line later with real return
 	}
     
-    public static ArrayList<String> expandSearchRadius(ArrayList<String> currWords, Set<String> dict, String start, String end, int currIdx) {
-    	int tempIdx, currEndIdx = currIdx;
+    public static ArrayList<Word> expandSearchRadius(ArrayList<Word> currWords, Set<String> dict, Word start, Word end, int currStartIdx, int currEndIdx) {
     	// find all words one letter change away
-    	for (int i=tempIdx; i<currWords.size(); i++) {
-    		String currWord = currWords.get(i);
-    		changeOneLetter(currWords, currWord);
-    		currEndIdx += 1;
+    	for (int i=currStartIdx; i<currEndIdx; i++) {
+    		Word currWord = currWords.get(i);
+    		currWords = changeOneLetter(currWords, currWord, dict);
     	}
-    	// remove all illegal/repeated words from currWords
-    	for (int i=tempIdx; i<currWords.size(); i++) {
-    		if (!dict.contains(currWords.get(i)) || currWords.containsBeforeIt()) {
-    			currWords.remove(i);
-    		}
-    	}
-    	return null;
+    	return currWords;
     }
     
-    public static ArrayList<String> changeOneLetter(ArrayList<String> currWords, String currWord) {
-    	char[] currWordArray = currWord.toCharArray();
+    public static ArrayList<Word> changeOneLetter(ArrayList<Word> currWords, Word currWord, Set<String> dict) {
+    	char[] currWordArray = currWord.value.toCharArray();
     	char[] tempCurrWordArray = currWordArray;
-    	String tempCurrWord = String.valueOf(tempCurrWordArray);
+    	String tempCurrWordStr = String.valueOf(tempCurrWordArray);
     	for (int j=0; j<5; j++) {
     		for (char k='a'; k<'z'; k++) {
     			tempCurrWordArray = currWordArray;
     			tempCurrWordArray[j] = k;
-    			tempCurrWord = String.valueOf(tempCurrWordArray);
-    			currWords.add(tempCurrWord);
+    			tempCurrWordStr = String.valueOf(tempCurrWordArray);
+    			Word tempCurrWord = new Word(tempCurrWordStr, currWord);
+    			// checks if word is valid/hasn't been repeated before
+    			boolean isValid = checkIfValid(tempCurrWord, currWords, dict);
+    			if (isValid) {
+    				currWords.add(tempCurrWord);
+    			}
     		}
     	}
-    	return null;
+    	return currWords;
     }
+    
+    // check if currWord is legal (in the dict) and hasn't been added to ArrayList currWords before
+    public static boolean checkIfValid(Word checkWord, ArrayList<Word> currWords, Set<String> dict) {
+		if (dict.contains(checkWord.value) && (currWords.indexOf(checkWord) == currWords.lastIndexOf(checkWord))) {
+			return true;
+		}
+    	return false;
+	}
     
 //    public static ArrayList<String> removeExtraWords(ArrayList<String> currWords, String currWord);
     
