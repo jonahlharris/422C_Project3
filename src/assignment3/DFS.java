@@ -58,12 +58,9 @@ public class DFS {
 				//myLadder.addWord(the_D[n]);
 				runDFS(the_D[n], 0);
 				if (myLadder.findWord(end)) { return; }
-				myLadder.removeWord(the_D[n]);
-				n += 1;			 
+				myLadder.removeWord(the_D[n]);			 
 			}
-			else{
-				n += 1;
-			}
+			n += 1;
 		}
 		myLadder.removeWord(word);   //Trying to see if it will remove the first word; may screw up lol
 		return;
