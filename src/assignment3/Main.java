@@ -211,7 +211,7 @@ public class Main {
 		Set<String> words = new HashSet<String>();
 		Scanner infile = null;
 		try {
-			infile = new Scanner (new File("short_dict.txt"));  //Short dictionary for testing
+			infile = new Scanner (new File("short_dict.txt"));  //Short dictionary for testing   Long Dictionary: five_letter_words.txt   Short Dictionary: short_dict.txt
 		} catch (FileNotFoundException e) {
 			System.out.println("Dictionary File not Found!");
 			e.printStackTrace();
