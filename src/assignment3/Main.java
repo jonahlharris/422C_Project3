@@ -146,6 +146,7 @@ public class Main {
     		currStartIdx = currEndIdx;
     		currEndIdx = currWords.size();
     	}
+    	
     	// create word ladder
     	ArrayList<Word> printLadder = new ArrayList<Word>();
     	printLadder.add(end);
@@ -155,13 +156,12 @@ public class Main {
     		printLadder.add(printWord);
     	}
     	printLadder.add(start);
+    	
     	// print word ladder
     	System.out.println("a " + String.valueOf(printLadder.size()-2) + "-rung word ladder exists between " + start.value + " and " + end.value);
     	for (int k=0; k<printLadder.size(); k++) {
     		System.out.println(printLadder.get(printLadder.size()-k-1).value);
     	}
-    	
-		// TODO more code
 		
 		return null; // replace this line later with real return
 	}
@@ -197,7 +197,9 @@ public class Main {
     
     // check if currWord is legal (in the dict) and hasn't been added to ArrayList currWords before
     public static boolean checkIfValid(Word checkWord, ArrayList<Word> currWords, Set<String> dict) {
-		if (dict.contains(checkWord.value) && (currWords.indexOf(checkWord) == currWords.lastIndexOf(checkWord))) {
+    	boolean test1 = dict.contains(checkWord.value);
+    	boolean test2 = (currWords.indexOf(checkWord) == -1);
+		if (test1 && test2) {
 			return true;
 		}
     	return false;
