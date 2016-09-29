@@ -25,6 +25,7 @@ public class DFS {
 	String[] the_D;
 	String start;
 	String end;
+	int word_count;
 	
 	/*
 	 * Constructor for DFS objects
@@ -49,6 +50,7 @@ public class DFS {
 	public void runDFS(String word, int n){
 		
 		myLadder.addWord(word);
+		word_count += 1;
 		if (word.equals(end)){ 
 			return; 
 		}
@@ -58,11 +60,13 @@ public class DFS {
 				//myLadder.addWord(the_D[n]);
 				runDFS(the_D[n], 0);
 				if (myLadder.findWord(end)) { return; }
-				myLadder.removeWord(the_D[n]);			 
+				myLadder.removeWord(the_D[n]);
+				word_count -= 1;
 			}
 			n += 1;
 		}
 		myLadder.removeWord(word);   //Trying to see if it will remove the first word; may screw up lol
+		word_count -= 1;
 		return;
 	}
 	
