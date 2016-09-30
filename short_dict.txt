@@ -14,3 +14,5 @@ cheer
 hants
 banal
 canal
+caval
+canet
