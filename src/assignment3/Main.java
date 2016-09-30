@@ -90,8 +90,17 @@ public class Main {
 	public static ArrayList<String> parse(String userInput) {
 		String[] userInputSplit = userInput.split("\\s+");
 		ArrayList<String> userInputList = new ArrayList<String>(Arrays.asList(userInputSplit));
+		// make uppercase
+		String temp1 = userInputList.get(0).toUpperCase();
+		String temp2 = userInputList.get(1).toUpperCase();
+		userInputList.remove(1);
+		userInputList.remove(0);
+		userInputList.add(temp1);
+		userInputList.add(temp2);
 		// DEBUG OUTPUT
-		System.out.println(Arrays.toString(userInputList.toArray()));
+//		System.out.println("The first word is:" + userInputList.get(0) + "/end\n");
+//		System.out.println("The second word is:" + userInputList.get(1) + "/end\n");
+//		System.out.println(Arrays.toString(userInputList.toArray()));
 		if (userInputList.size() != 2) {
 			System.out.println("\nThanks for playing. Goodbye!\n");
 			System.exit(0);
@@ -144,16 +153,26 @@ public class Main {
     	int currStartIdx = currIdx;
     	int currEndIdx = currWords.size();
 		Set<String> dict = makeDictionary();
+		
+		boolean goAgain = true;
+		int endWordIdx = 0;
+//    	while (goAgain) /RIGHT BRACE/ 
     	while (!currWords.contains(end)) {
     		currWords = expandSearchRadius(currWords, dict, start, end, currStartIdx, currEndIdx);
-    		currStartIdx = currEndIdx;
-    		currEndIdx = currWords.size();
+//    		currStartIdx = currEndIdx;
+//    		currEndIdx = currWords.size();
+    		
+//    		ArrayList<String> tempClone = new ArrayList<String>(currWords.size());
+//        	for (Word item : currWords) tempClone.add(item.value);
+//        	goAgain = !tempClone.contains(end.value);
+//        	endWordIdx = tempClone.indexOf(end.value);
     	}
-    	
+//    	System.out.println(String.valueOf(endWordIdx));
+    	Word endWordFinal = currWords.get(endWordIdx);
     	// create word ladder
     	ArrayList<Word> printLadder = new ArrayList<Word>();
     	printLadder.add(end);
-    	Word printWord = end;
+    	Word printWord = endWordFinal;
     	while (printWord.parent != start) {
     		printWord = printWord.parent;
     		printLadder.add(printWord);
@@ -183,7 +202,9 @@ public class Main {
     	char[] tempCurrWordArray = currWordArray;
     	String tempCurrWordStr = String.valueOf(tempCurrWordArray);
     	for (int j=0; j<5; j++) {
-    		for (char k='a'; k<'z'; k++) {
+    		tempCurrWordArray = currWordArray;
+    		char currChar = currWordArray[j];
+    		for (char k='A'; k<='Z'; k++) {
     			tempCurrWordArray = currWordArray;
     			tempCurrWordArray[j] = k;
     			tempCurrWordStr = String.valueOf(tempCurrWordArray);
@@ -193,6 +214,7 @@ public class Main {
     			if (isValid) {
     				currWords.add(tempCurrWord);
     			}
+    			tempCurrWordArray[j] = currChar;
     		}
     	}
     	return currWords;
@@ -200,12 +222,8 @@ public class Main {
     
     // check if currWord is legal (in the dict) and hasn't been added to ArrayList currWords before
     public static boolean checkIfValid(Word checkWord, ArrayList<Word> currWords, Set<String> dict) {
-    	boolean test1 = dict.contains(checkWord.value);
-    	boolean test2 = (currWords.indexOf(checkWord) == -1);
-		if (test1 && test2) {
-			return true;
-		}
-    	return false;
+//    	System.out.println("The word is:" + checkWord.value + "/end\n");
+		return ((dict.contains(checkWord.value)) && (!currWords.contains(checkWord)));
 	}
     
 //    public static ArrayList<String> removeExtraWords(ArrayList<String> currWords, String currWord);
@@ -214,7 +232,7 @@ public class Main {
 		Set<String> words = new HashSet<String>();
 		Scanner infile = null;
 		try {
-			infile = new Scanner (new File("short_dict.txt"));  //Short dictionary for testing   Long Dictionary: five_letter_words.txt   Short Dictionary: short_dict.txt
+			infile = new Scanner (new File("five_letter_words.txt"));  //Short dictionary for testing   Long Dictionary: five_letter_words.txt   Short Dictionary: short_dict.txt
 		} catch (FileNotFoundException e) {
 			System.out.println("Dictionary File not Found!");
 			e.printStackTrace();
