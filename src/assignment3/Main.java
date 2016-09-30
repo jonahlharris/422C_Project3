@@ -156,6 +156,9 @@ public class Main {
 //    	while (goAgain) /RIGHT BRACE/ 
     	while (!currWords.contains(end)) {
     		currWords = expandSearchRadius(currWords, dict, start, end, currStartIdx, currEndIdx);
+    		if (currWords.contains(end)) {
+    			break;
+    		}
 //    		currStartIdx = currEndIdx;
 //    		currEndIdx = currWords.size();
     		
@@ -165,22 +168,26 @@ public class Main {
 //        	endWordIdx = tempClone.indexOf(end.value);
     	}
 //    	System.out.println(String.valueOf(endWordIdx));
-    	Word endWordFinal = currWords.get(endWordIdx);
+//    	Word endWordFinal = currWords.get(endWordIdx);
+    	
     	// create word ladder
     	ArrayList<Word> printLadder = new ArrayList<Word>();
-    	printLadder.add(end);
-    	Word printWord = endWordFinal;
+    	Word endWordObj = currWords.get(currWords.size()-1);
+//    	printLadder.add(endWordObj);
+    	Word printWord = endWordObj;
     	while (printWord.parent != start) {
     		printWord = printWord.parent;
     		printLadder.add(printWord);
     	}
-    	printLadder.add(start);
+//    	printLadder.add(start);
     	
     	// print word ladder
-    	System.out.println("a " + String.valueOf(printLadder.size()-2) + "-rung word ladder exists between " + start.value + " and " + end.value);
+    	System.out.println("a " + String.valueOf(printLadder.size()) + "-rung word ladder exists between " + start.value + " and " + end.value);
+    	System.out.println(start.value);
     	for (int k=0; k<printLadder.size(); k++) {
     		System.out.println(printLadder.get(printLadder.size()-k-1).value);
     	}
+    	System.out.println(end.value);
 		
 		return null; // replace this line later with real return
 	}
@@ -190,6 +197,10 @@ public class Main {
     	for (int i=currStartIdx; i<currEndIdx; i++) {
     		Word currWord = currWords.get(i);
     		currWords = changeOneLetter(currWords, currWord, dict);
+    		Word tempEndWord = currWords.get(currWords.size()-1);
+    		if (tempEndWord.equals(end)) {
+    			return currWords;
+    		}
     	}
     	return currWords;
     }
