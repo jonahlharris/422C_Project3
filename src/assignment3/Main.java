@@ -60,8 +60,8 @@ public class Main {
 		// DFS
 
 		ArrayList<String> output = getWordLadderDFS(startWord, endWord);
-		if (word_count > 0) { System.out.print("a " + word_count + "-rung word ladder exitst between " + startWord + " and " + endWord + ".\n"); }
-		else { System.out.print("no word ladder can be found between " + startWord + " and " + endWord + ".\n"); }
+		System.out.print("a " + word_count + "-rung word ladder exitst between " + startWord + " and " + endWord + ".\n"); 
+		//else { System.out.print("no word ladder can be found between " + startWord + " and " + endWord + ".\n"); }
 		Iterator<String> myIt = output.iterator();
 		while(myIt.hasNext()){
 			System.out.println(myIt.next());		//If no ladder then nothing will be printed
@@ -136,6 +136,7 @@ public class Main {
 		startDFS.runDFS(start, n);
 		word_count = startDFS.word_count;
 		return startDFS.myLadder.convertToArrayList();
+	
 	}
 	
 	/*

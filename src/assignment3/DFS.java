@@ -21,6 +21,7 @@ import java.io.*;
 public class DFS {
 	
 	WordLadder myLadder = new WordLadder();
+	WordLadder badLadder = new WordLadder();
 	Set<String> hashWords;
 	String[] the_D;
 	String start;
@@ -38,7 +39,6 @@ public class DFS {
 	}
 	
 	
-	
 	/*
 	 * Returns a word ladder between the 'start' and 'end' words using DFS.
 	 */
@@ -51,10 +51,13 @@ public class DFS {
 		
 		myLadder.addWord(word);
 		word_count += 1;
-		if (word.equals(end)){ 
-			return; 
+		if (word.equals(end)){ return; }
+		if (wordCompare(word, end)){
+			myLadder.addWord(end);
+			word_count += 1;
+			return;
 		}
-		
+
 		while (n < the_D.length){
 			if (wordCompare(word, the_D[n])){ // Method to compare word and check for redundancy
 				//myLadder.addWord(the_D[n]);
@@ -65,8 +68,9 @@ public class DFS {
 			}
 			n += 1;
 		}
-		myLadder.removeWord(word);   //Trying to see if it will remove the first word; may screw up lol
-		word_count -= 1;
+		//myLadder.removeWord(word);   //Trying to see if it will remove the first word; may screw up lol
+		//word_count -= 1;
+		badLadder.addWord(word);
 		return;
 	}
 	
@@ -75,6 +79,8 @@ public class DFS {
 		
 		//Check our WordLadder to see if already present
 		if(myLadder.findWord(dic_word)){ return false; }
+		
+		if(badLadder.findWord(dic_word)){ return false; }
 		
 		int char_match = 0;
 		for(int i = 0; i < 5; i += 1){ //Comparing each letter of both words
