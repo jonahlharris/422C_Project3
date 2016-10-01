@@ -14,31 +14,18 @@
  * Fall 2016
  */
 
-<<<<<<< HEAD
-/*
- * BEFORE COMMITTING:  ////////////////////////////////////////////////////////////////////////////////////////
- * 
- * 		UNCOMMENT line getWordLadderBFS in main
- * 		UNCOMMENT method expandSearchRadius in Main
- */
-=======
-
->>>>>>> origin/master
-
 package assignment3;
 import java.util.*;
 import java.io.*;
 
 public class Main {
 	
-	// static variables and constants only here.
-<<<<<<< HEAD
-=======
+	// static variables and constants.
+
 	static int word_count;
 	static String start;
 	static String end;
 	static String userInput;
->>>>>>> origin/master
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -69,23 +56,11 @@ public class Main {
 		end = endWord;
 		
 		// BFS
-<<<<<<< HEAD
 		getWordLadderBFS(startW, endW);
-
-		
-		// DFS
-		 getWordLadderDFS(startWord, endWord);
-=======
-		//getWordLadderBFS(startW, endW);
-		
 		
 		// DFS
 		ArrayList<String> output = getWordLadderDFS(startWord, endWord);
 		printLadder(output);
->>>>>>> origin/master
-		
-		// print ladder
-		// printLadder();
 	}
 	
 	public static void initialize() {
@@ -146,19 +121,13 @@ public class Main {
 		n = 0;
 		DFS startDFS = new DFS(dict, the_D, start, end);
 		startDFS.runDFS(start, n);
-<<<<<<< HEAD
-		if(startDFS.myLadder.findWord(start)){ startDFS.myLadder.printLadder(); }
-		else { System.out.println("No match!!!"); }
-		return null; //Need to return list; printing here for testing :)
-=======
+
 		if (!(startDFS.myLadder.findWord(end))){ 
 			startDFS.myLadder.removeWord(start);
 			word_count = 0;
 		}
 		else { word_count = startDFS.word_count - 2; }
 		return startDFS.myLadder.convertToArrayList();
-	
->>>>>>> origin/master
 	}
 	
 	/*
