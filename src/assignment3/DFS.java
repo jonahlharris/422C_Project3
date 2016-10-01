@@ -67,11 +67,9 @@ public class DFS {
 				word_count -= 1;
 			}
 			n += 1;
-		}
-		//myLadder.removeWord(word);   //Trying to see if it will remove the first word; may screw up lol
-		//word_count -= 1;
-		badLadder.addWord(word);
-		return;
+		}								//  --> DFS: attempt at reducing ladder length! <--
+		badLadder.addWord(word);		//If we reach the end of the dictionary with no working matches we add the word to a "Bad List"
+		return;							//This way we avoid unnecessary calls and loops.
 	}
 	
 	

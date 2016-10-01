@@ -25,6 +25,9 @@ public class Main {
 	
 	// static variables and constants only here.
 	static int word_count;
+	static String start;
+	static String end;
+	static String userInput;
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -42,39 +45,31 @@ public class Main {
 		initialize();
 		
 		// prompt user for input
-		String userInput = prompt(kb);
+		userInput = prompt(kb);
 		
 		// read in and parse the words
-		ArrayList<String> userInputList = parse(userInput);
+		ArrayList<String> userInputList = parse(kb);
 		String startWord = userInputList.get(0);
 		Word startW = new Word(startWord, null);
 		String endWord = userInputList.get(1);
 		Word endW = new Word(endWord, null);
 		
+		start = startWord;
+		end = endWord;
+		
 		// BFS
-		word_count = 0;
 		//getWordLadderBFS(startW, endW);
-		//System.out.print("a " + word_count + "-rung word ladder exitst between " + startWord + " and " + endWord + ".\n");
 		
 		
 		// DFS
-
 		ArrayList<String> output = getWordLadderDFS(startWord, endWord);
-		System.out.print("a " + word_count + "-rung word ladder exitst between " + startWord + " and " + endWord + ".\n"); 
-		//else { System.out.print("no word ladder can be found between " + startWord + " and " + endWord + ".\n"); }
-		Iterator<String> myIt = output.iterator();
-		while(myIt.hasNext()){
-			System.out.println(myIt.next());		//If no ladder then nothing will be printed
-		}
+		printLadder(output);
 		
 	}
 	
 	public static void initialize() {
-		// initialize your static variables or constants here.
-		// We will call this method before running our JUNIT tests.  So call it 
-		// only once at the start of main.
+		//Not used 
 	}
-	
 	// prompt user for input
 	public static String prompt(Scanner keyboard) {
 		System.out.println("\nWelcome to Word Ladder. Please enter two five-letter words, or type /quit to exit: ");
@@ -87,10 +82,14 @@ public class Main {
 	 * @return ArrayList of 2 Strings containing start word and end word. 
 	 * If command is /quit, return empty ArrayList. 
 	 */
-	public static ArrayList<String> parse(String userInput) {
+	public static ArrayList<String> parse(Scanner keyboard) {
 		String[] userInputSplit = userInput.split("\\s+");
 		ArrayList<String> userInputList = new ArrayList<String>(Arrays.asList(userInputSplit));
 		// make uppercase
+		if (userInputList.size() != 2) {
+			System.out.println("\nThanks for playing. Goodbye!\n");
+			System.exit(0);
+		}
 		String temp1 = userInputList.get(0).toUpperCase();
 		String temp2 = userInputList.get(1).toUpperCase();
 		userInputList.remove(1);
@@ -101,10 +100,6 @@ public class Main {
 //		System.out.println("The first word is:" + userInputList.get(0) + "/end\n");
 //		System.out.println("The second word is:" + userInputList.get(1) + "/end\n");
 //		System.out.println(Arrays.toString(userInputList.toArray()));
-		if (userInputList.size() != 2) {
-			System.out.println("\nThanks for playing. Goodbye!\n");
-			System.exit(0);
-		}
 		return userInputList;
 	}
 	
@@ -122,19 +117,19 @@ public class Main {
 		
 		int n = 0;
 		String[] the_D = new String[array.length];
-		//System.out.println(array.length);
 		while (n < array.length){
-			
 			the_D[n] = (String)array[n]; 
-			//System.out.println(the_D[i]);
 			n += 1;
 		}
 		
 		n = 0;
 		DFS startDFS = new DFS(dict, the_D, start, end);
-		//startDFS. word ladder clear
 		startDFS.runDFS(start, n);
-		word_count = startDFS.word_count;
+		if (!(startDFS.myLadder.findWord(end))){ 
+			startDFS.myLadder.removeWord(start);
+			word_count = 0;
+		}
+		else { word_count = startDFS.word_count; }
 		return startDFS.myLadder.convertToArrayList();
 	
 	}
@@ -246,9 +241,11 @@ public class Main {
 	}
 	
 	public static void printLadder(ArrayList<String> ladder) {
-		// System.out.println("A " + ladder.size() + "-rung word ladder exists between" + startWord + " and " + endWord + " <finish>. ");
-		for (int i=0; i<ladder.size(); i++) {
-			System.out.println(ladder.get(i));
+		if (word_count > 0) { System.out.print("a " + word_count + "-rung word ladder exitst between " + start + " and " + end + ".\n"); }
+		else { System.out.print("no word ladder can be found between " + start + " and " + end + ".\n"); }
+		Iterator<String> myIt = ladder.iterator();
+		while(myIt.hasNext()){
+			System.out.println(myIt.next());		//If no ladder then nothing will be printed
 		}
 	}
 	// TODO
