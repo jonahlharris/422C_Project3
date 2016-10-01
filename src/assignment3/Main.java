@@ -9,11 +9,10 @@
  * jlh6487
  * 16455
  * 
- * Slip days used: <0>
+ * Slip days used: <1>
  * Git URL: https://github.com/Hackerman64/422C_Project3
  * Fall 2016
  */
-
 
 
 
@@ -129,7 +128,7 @@ public class Main {
 			startDFS.myLadder.removeWord(start);
 			word_count = 0;
 		}
-		else { word_count = startDFS.word_count; }
+		else { word_count = startDFS.word_count - 2; }
 		return startDFS.myLadder.convertToArrayList();
 	
 	}
@@ -241,11 +240,12 @@ public class Main {
 	}
 	
 	public static void printLadder(ArrayList<String> ladder) {
-		if (word_count > 0) { System.out.print("a " + word_count + "-rung word ladder exitst between " + start + " and " + end + ".\n"); }
+		if (ladder.contains(start)) { System.out.print("a " + word_count + "-rung word ladder exists between " + start.toLowerCase() + " and " + end.toLowerCase() + ".\n"); }
 		else { System.out.print("no word ladder can be found between " + start + " and " + end + ".\n"); }
 		Iterator<String> myIt = ladder.iterator();
 		while(myIt.hasNext()){
-			System.out.println(myIt.next());		//If no ladder then nothing will be printed
+			String out = myIt.next();
+			System.out.println(out.toLowerCase());		//If no ladder then nothing will be printed
 		}
 	}
 	// TODO

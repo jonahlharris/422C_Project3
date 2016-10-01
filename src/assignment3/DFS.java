@@ -1,17 +1,19 @@
 /* WORD LADDER Main.java
  * EE422C Project 3 submission by
+ * 
+ * <Sagar Krishnaraj>
+ * <sk37433>
+ * <Student1 5-digit Unique No.>
+ * 
  * Jonah Harris
  * jlh6487
  * 16455
  * 
- * Sagar Krishnaraj
- * 2Kool4Skewl
- * 1-800-YOUR-MOM
- * 
- * Slip days used: <0>
+ * Slip days used: <1>
  * Git URL: https://github.com/Hackerman64/422C_Project3
  * Fall 2016
  */
+
 
 package assignment3;
 import java.util.*;

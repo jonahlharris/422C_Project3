@@ -1,3 +1,20 @@
+/* WORD LADDER Main.java
+ * EE422C Project 3 submission by
+ * 
+ * <Sagar Krishnaraj>
+ * <sk37433>
+ * <Student1 5-digit Unique No.>
+ * 
+ * Jonah Harris
+ * jlh6487
+ * 16455
+ * 
+ * Slip days used: <1>
+ * Git URL: https://github.com/Hackerman64/422C_Project3
+ * Fall 2016
+ */
+
+
 package assignment3;
 
 public class Word {
