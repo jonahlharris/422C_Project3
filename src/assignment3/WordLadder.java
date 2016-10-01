@@ -31,9 +31,19 @@ public class WordLadder {
 		while(myIt.hasNext()){
 			System.out.println(myIt.next());
 		}
-		
 	}
 	
+	public ArrayList<String> convertToArrayList(){
+		
+		ArrayList<String> output = new ArrayList<String>();
+		Iterator<String> myIt = full_list.iterator();
+		while(myIt.hasNext()){
+			output.add(myIt.next());
+		}
+		
+		return output;
+		
+	}
 	
 
 }

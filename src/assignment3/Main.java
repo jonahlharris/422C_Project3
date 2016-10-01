@@ -59,7 +59,7 @@ public class Main {
 
 		
 		// DFS
-//		 getWordLadderDFS(startWord, endWord);
+		 getWordLadderDFS(startWord, endWord);
 		
 		// print ladder
 		// printLadder();
@@ -143,51 +143,51 @@ public class Main {
 	
     public static ArrayList<String> getWordLadderBFS(Word start, Word end) {
 		
-		// TODO some code
+		// list of current words - queue
     	ArrayList<Word> currWords = new ArrayList<Word>();
     	int currIdx = 0;
     	currWords.add(start);
+    	// what range of words have been unchecked in the queue
     	int currStartIdx = currIdx;
     	int currEndIdx = currWords.size();
 		Set<String> dict = makeDictionary();
 		
+		// not done yet
 		boolean goAgain = true;
 		int endWordIdx = 0;
-//    	while (goAgain) /RIGHT BRACE/ 
-    	while (!currWords.contains(end)) {
+    	while (goAgain) {
+    		// expand the radius as end word is not found yet
     		currWords = expandSearchRadius(currWords, dict, start, end, currStartIdx, currEndIdx);
-    		if (currWords.contains(end)) {
-    			break;
-    		}
-//    		currStartIdx = currEndIdx;
-//    		currEndIdx = currWords.size();
+    		currStartIdx = currEndIdx;
+    		currEndIdx = currWords.size();
     		
-//    		ArrayList<String> tempClone = new ArrayList<String>(currWords.size());
-//        	for (Word item : currWords) tempClone.add(item.value);
-//        	goAgain = !tempClone.contains(end.value);
-//        	endWordIdx = tempClone.indexOf(end.value);
+    		// copy the words into a string array for easier manipulation
+    		ArrayList<String> tempClone = new ArrayList<String>(currWords.size());
+        	for (Word item : currWords) tempClone.add(item.value);
+        	goAgain = !tempClone.contains(end.value);
+        	endWordIdx = tempClone.indexOf(end.value);
     	}
-//    	System.out.println(String.valueOf(endWordIdx));
-//    	Word endWordFinal = currWords.get(endWordIdx);
     	
+    	Word endWordFinal = currWords.get(endWordIdx);
     	// create word ladder
-    	ArrayList<Word> printLadder = new ArrayList<Word>();
-    	Word endWordObj = currWords.get(currWords.size()-1);
-//    	printLadder.add(endWordObj);
-    	Word printWord = endWordObj;
+    	ArrayList<String> printLadder = new ArrayList<String>();
+//    	printLadder.add(end);
+    	Word printWord = endWordFinal;
     	while (printWord.parent != start) {
     		printWord = printWord.parent;
-    		printLadder.add(printWord);
+    		printLadder.add(printWord.value);
     	}
 //    	printLadder.add(start);
+//    	ArrayList<String> printLadder2 = new ArrayList<String>();
+//    	for (a : printLadder) {
+//    		
+//    	}
+    	Collections.reverse(printLadder);
+    	
+    	System.out.println("a " + String.valueOf(printLadder.size()) + "-rung word ladder exists between " + start.value + " and " + end.value);
+    	printLadder(printLadder);
     	
     	// print word ladder
-    	System.out.println("a " + String.valueOf(printLadder.size()) + "-rung word ladder exists between " + start.value + " and " + end.value);
-    	System.out.println(start.value);
-    	for (int k=0; k<printLadder.size(); k++) {
-    		System.out.println(printLadder.get(printLadder.size()-k-1).value);
-    	}
-    	System.out.println(end.value);
 		
 		return null; // replace this line later with real return
 	}
@@ -197,10 +197,6 @@ public class Main {
     	for (int i=currStartIdx; i<currEndIdx; i++) {
     		Word currWord = currWords.get(i);
     		currWords = changeOneLetter(currWords, currWord, dict);
-    		Word tempEndWord = currWords.get(currWords.size()-1);
-    		if (tempEndWord.equals(end)) {
-    			return currWords;
-    		}
     	}
     	return currWords;
     }
@@ -231,7 +227,16 @@ public class Main {
     // check if currWord is legal (in the dict) and hasn't been added to ArrayList currWords before
     public static boolean checkIfValid(Word checkWord, ArrayList<Word> currWords, Set<String> dict) {
 //    	System.out.println("The word is:" + checkWord.value + "/end\n");
-		return ((dict.contains(checkWord.value)) && (!currWords.contains(checkWord)));
+    	boolean test1 = dict.contains(checkWord.value);
+    	
+    	ArrayList<String> tempClone = new ArrayList<String>(currWords.size());
+    	for (Word item : currWords) tempClone.add(item.value);
+    	
+    	boolean test2 = (!tempClone.contains(checkWord.value));
+		if (test1 && test2) {
+			return true;
+		}
+    	return false;
 	}
     
 //    public static ArrayList<String> removeExtraWords(ArrayList<String> currWords, String currWord);
